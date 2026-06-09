@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-06-09T03:05:37.212Z",
+  "vus": 10,
+  "duration": "10s",
+  "total_requests": 990,
+  "failed_requests": 0,
+  "p95_duration_ms": 4.513388249999999,
+  "avg_duration_ms": 1.0335273535353535,
+  "rate_limited": 567,
+  "thresholds_passed": true
+}

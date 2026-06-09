@@ -1,0 +1,51 @@
+server:
+  port: ${SERVER_PORT:8082}
+
+spring:
+  application:
+    name: alert-service
+
+  # ── RabbitMQ ─────────────────────────────────────────────────────────────────
+  rabbitmq:
+    host: ${SPRING_RABBITMQ_HOST:localhost}
+    port: ${SPRING_RABBITMQ_PORT:5672}
+    username: ${SPRING_RABBITMQ_USERNAME:guest}
+    password: ${SPRING_RABBITMQ_PASSWORD:guest}
+
+  # ── Redis ────────────────────────────────────────────────────────────────────
+  data:
+    redis:
+      host: ${SPRING_REDIS_HOST:localhost}
+      port: ${SPRING_REDIS_PORT:6379}
+      timeout: 2000ms
+      connect-timeout: 2000ms
+
+  # ── Cache ────────────────────────────────────────────────────────────────────
+  cache:
+    type: redis
+    redis:
+      # TTL de 60 segundos: eventos de clima espacial têm granularidade horária na
+      # NASA DONKI, então 60s equilibra frescor dos dados e redução de carga no consumer.
+      time-to-live: 60000
+      cache-null-values: false
+
+# ── RabbitMQ: fila a consumir ─────────────────────────────────────────────────
+solar:
+  rabbitmq:
+    exchange: solar.exchange
+    queue: solar.alerts.queue
+    routing-key: solar.alerts
+
+# ── Actuator ─────────────────────────────────────────────────────────────────
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.solarshield: DEBUG

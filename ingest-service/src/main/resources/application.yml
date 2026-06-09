@@ -1,0 +1,47 @@
+server:
+  port: ${SERVER_PORT:8081}
+
+spring:
+  application:
+    name: ingest-service
+
+  # ── RabbitMQ ─────────────────────────────────────────────────────────────────
+  rabbitmq:
+    host: ${SPRING_RABBITMQ_HOST:localhost}
+    port: ${SPRING_RABBITMQ_PORT:5672}
+    username: ${SPRING_RABBITMQ_USERNAME:guest}
+    password: ${SPRING_RABBITMQ_PASSWORD:guest}
+
+# ── NASA API ─────────────────────────────────────────────────────────────────
+nasa:
+  api:
+    key: ${NASA_API_KEY:DEMO_KEY}
+    base-url: https://api.nasa.gov
+    # Busca eventos dos últimos 7 dias
+    gst-endpoint: /DONKI/GST
+    retry:
+      max-attempts: 3
+      initial-interval: 1000   # 1 segundo
+      multiplier: 2.0           # dobra a cada tentativa (backoff exponencial)
+      max-interval: 10000       # máximo de 10 segundos
+
+# ── RabbitMQ: filas e exchanges ───────────────────────────────────────────────
+solar:
+  rabbitmq:
+    exchange: solar.exchange
+    queue: solar.alerts.queue
+    routing-key: solar.alerts
+
+# ── Actuator ─────────────────────────────────────────────────────────────────
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.solarshield: DEBUG
