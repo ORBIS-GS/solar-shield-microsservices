@@ -1,7 +1,9 @@
 # 🛡️ Solar Shield — Sistema de Monitoramento de Clima Espacial
 
 Plataforma de microsserviços que ingere dados reais da NASA (DONKI), classifica riscos de clima espacial e dispara alertas para operadores de infraestrutura crítica.
-Stack: Java 17 · Spring Boot 3.2 · RabbitMQ 3.13 · Redis 7.2 · Nginx 1.25 · Docker Compose
+
+> **Stack:** Java 17 · Spring Boot 3.2 · RabbitMQ 3.13 · Redis 7.2 · Nginx 1.25 · Docker Compose
+
 ---
 ### Arquitetura
 #### C4 — Nível 1: System Context
